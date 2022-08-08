@@ -1,0 +1,3 @@
+id_lead;nome;email
+1;Evandro;evandrocwd@gmail.com
+2;Nete;pequenaluzi@hotmail.com

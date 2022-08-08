@@ -1,5 +1,8 @@
 package io.github.evandrolopes85.landingpage.controller;
 
+import java.io.BufferedWriter;
+import java.io.FileWriter;
+import java.io.IOException;
 import java.util.ArrayList;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -8,6 +11,7 @@ import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
 import io.github.evandrolopes85.landingpage.model.Lead;
@@ -21,11 +25,20 @@ public class LeadController {
 	private LeadService service;
 	
 	@GetMapping("/lead")
-	public ResponseEntity<ArrayList<Lead>> recuperaTodosOsLeads(){
+	public ResponseEntity<ArrayList<Lead>> recuperaTodosOsLeads(@RequestParam(name = "url") String url) throws IOException{
 		ArrayList<Lead> leads = service.recuperaTodosOsLeads();
 		
-		if(leads != null)
+		if(leads != null) {
+			FileWriter fw = new FileWriter("./"+url, false);
+			BufferedWriter br = new BufferedWriter(fw);
+			br.write("id_lead;nome;email"+"\n");
+			for (Lead lead : leads) {
+				br.write(lead.getIdLead() + ";" + lead.getNome() + ";" + lead.getEmail()+"\n");
+			}
+			br.close();
+			fw.close();
 			return ResponseEntity.ok(leads);
+		}
 		
 		return ResponseEntity.badRequest().build();
 	}
