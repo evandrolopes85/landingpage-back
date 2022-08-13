@@ -7,10 +7,9 @@ import org.springframework.stereotype.Component;
 
 import io.github.evandrolopes85.landingpage.dao.LeadDAO;
 import io.github.evandrolopes85.landingpage.model.Lead;
-import io.github.evandrolopes85.landingpage.model.LeadService;
 
 @Component
-public class LeadServicesImpl implements LeadService{
+public class LeadServicesImpl implements ILeadService{
 
 	@Autowired
 	private LeadDAO dao;

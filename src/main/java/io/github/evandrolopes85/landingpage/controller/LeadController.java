@@ -15,14 +15,14 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
 import io.github.evandrolopes85.landingpage.model.Lead;
-import io.github.evandrolopes85.landingpage.model.LeadService;
+import io.github.evandrolopes85.landingpage.services.ILeadService;
 
 @RestController
 @CrossOrigin("*")
 public class LeadController {
 	
 	@Autowired
-	private LeadService service;
+	private ILeadService service;
 	
 	@GetMapping("/lead")
 	public ResponseEntity<ArrayList<Lead>> recuperaTodosOsLeads(@RequestParam(name = "url") String url) throws IOException{
